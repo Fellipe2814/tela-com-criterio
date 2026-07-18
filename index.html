@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tela com Critério — Guia de Desenhos Educativos para Bebês</title>
+<style>
+  :root{
+    --teal-950:#123332;
+    --teal-900:#16403F;
+    --teal-800:#1F4E4D;
+    --teal-600:#2E6F6E;
+    --teal-400:#4A9A98;
+    --cream:#FBF3E6;
+    --cream-dim:#F0E4D0;
+    --coral:#E8734A;
+    --coral-dim:#F3A484;
+    --mustard:#D9A441;
+    --plum:#7B4B94;
+    --ink:#20302F;
+    --good:#3F9463;
+    --bad:#C6543B;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .sans{font-family:'Avenir Next','Segoe UI',system-ui,sans-serif;}
+  a{color:inherit;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+
+  /* ---------- sticky cta ---------- */
+  .stickybar{
+    position:fixed; bottom:0; left:0; right:0; z-index:50;
+    background:var(--teal-950); color:var(--cream);
+    padding:14px 20px; display:flex; align-items:center; justify-content:space-between;
+    gap:16px; transform:translateY(120%); transition:transform .4s ease;
+    box-shadow:0 -6px 24px rgba(0,0,0,.25);
+  }
+  .stickybar.show{transform:translateY(0);}
+  .stickybar span{font-family:'Avenir Next',sans-serif; font-size:14px; opacity:.85;}
+  .stickybar strong{font-size:18px; font-family:Georgia,serif;}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--coral); color:var(--cream);
+    font-family:'Avenir Next',sans-serif; font-weight:700; font-size:16px;
+    padding:16px 30px; border-radius:100px; text-decoration:none;
+    box-shadow:0 8px 20px rgba(232,115,74,.35);
+    transition:transform .2s ease, box-shadow .2s ease;
+    border:none; cursor:pointer; white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px); box-shadow:0 12px 26px rgba(232,115,74,.45);}
+  .btn.ghost{background:transparent; color:var(--cream); border:2px solid rgba(251,243,230,.4); box-shadow:none; padding:14px 26px;}
+  .btn.ghost:hover{border-color:var(--cream);}
+  .btn.small{padding:12px 22px; font-size:14px;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:radial-gradient(120% 140% at 15% -10%, var(--teal-600), var(--teal-950) 65%);
+    color:var(--cream); padding:96px 0 72px; position:relative; overflow:hidden;
+  }
+  .eyebrow{
+    font-family:'Avenir Next',sans-serif; text-transform:uppercase; letter-spacing:.18em;
+    font-size:12px; color:var(--mustard); font-weight:700; margin-bottom:22px; display:block;
+  }
+  .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center; position:relative; z-index:2;}
+  h1{font-size:clamp(38px,5.2vw,60px); line-height:1.04; letter-spacing:-.01em; margin-bottom:22px;}
+  h1 em{font-style:italic; color:var(--coral-dim);}
+  .hero-sub{font-family:'Avenir Next',sans-serif; font-size:18px; line-height:1.6; color:#DCE9E7; max-width:46ch; margin-bottom:34px;}
+  .hero-cta-row{display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
+  .hero-note{font-family:'Avenir Next',sans-serif; font-size:13px; color:#B9D2CF; margin-top:14px;}
+
+  .tv-frame{position:relative;}
+  .tv-glow{position:absolute; inset:-40px; background:radial-gradient(circle, rgba(232,115,74,.25), transparent 70%); filter:blur(10px);}
+
+  .bg-stars{position:absolute; inset:0; z-index:1; opacity:.5;}
+
+  /* ---------- section shells ---------- */
+  section{padding:88px 0;}
+  .section-cream{background:var(--cream);}
+  .section-dim{background:var(--cream-dim);}
+  .kicker{
+    font-family:'Avenir Next',sans-serif; text-transform:uppercase; letter-spacing:.16em;
+    font-size:12px; font-weight:700; color:var(--teal-600); margin-bottom:14px; display:block;
+  }
+  h2{font-size:clamp(28px,3.6vw,40px); line-height:1.12; margin-bottom:18px; color:var(--teal-950);}
+  .lede{font-family:'Avenir Next',sans-serif; font-size:17px; line-height:1.7; color:#3E4E4C; max-width:62ch;}
+
+  /* ---------- problem section ---------- */
+  .problem-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:52px;}
+  .problem-card{background:var(--cream); border:1px solid rgba(31,78,77,.12); border-radius:18px; padding:30px 26px;}
+  .problem-card .glyph{font-size:30px; margin-bottom:16px;}
+  .problem-card h3{font-size:19px; margin-bottom:10px; color:var(--teal-900);}
+  .problem-card p{font-family:'Avenir Next',sans-serif; font-size:15px; line-height:1.6; color:#4A5B59;}
+
+  /* ---------- signature comparison ---------- */
+  .compare{
+    margin-top:56px; border-radius:22px; overflow:hidden;
+    display:grid; grid-template-columns:1fr 1fr; box-shadow:0 20px 50px rgba(18,51,50,.12);
+  }
+  .compare-col{padding:36px 34px;}
+  .compare-col.good{background:#EAF5EE;}
+  .compare-col.bad{background:#FBEAE5;}
+  .compare-label{font-family:'Avenir Next',sans-serif; font-weight:800; font-size:13px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:18px; display:flex; align-items:center; gap:8px;}
+  .compare-col.good .compare-label{color:var(--good);}
+  .compare-col.bad .compare-label{color:var(--bad);}
+  .compare-col ul{list-style:none; font-family:'Avenir Next',sans-serif; font-size:14.5px; line-height:1.5; color:#33413F;}
+  .compare-col li{padding:10px 0; border-top:1px solid rgba(0,0,0,.06);}
+  .compare-col li:first-child{border-top:none;}
+
+  /* ---------- contents grid ---------- */
+  .contents-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:52px;}
+  .content-card{
+    background:var(--teal-950); color:var(--cream); border-radius:18px; padding:28px 26px;
+    position:relative; overflow:hidden;
+  }
+  .content-card .num{
+    font-family:Georgia,serif; font-size:13px; color:var(--mustard); font-weight:700; letter-spacing:.05em; margin-bottom:14px; display:block;
+  }
+  .content-card h3{font-size:19px; margin-bottom:10px;}
+  .content-card p{font-family:'Avenir Next',sans-serif; font-size:14px; line-height:1.6; color:#CFE1DF;}
+
+  /* ---------- shows strip ---------- */
+  .shows-strip{display:flex; gap:14px; overflow-x:auto; margin-top:44px; padding-bottom:8px;}
+  .show-chip{
+    flex:0 0 auto; background:var(--cream); border:1px solid rgba(31,78,77,.15); border-radius:14px;
+    padding:16px 20px; display:flex; align-items:center; gap:12px; font-family:'Avenir Next',sans-serif;
+  }
+  .show-chip .emoji{font-size:22px;}
+  .show-chip span{font-size:14px; font-weight:600; color:var(--teal-900);}
+  .show-chip.attn{background:#FBEAE5; border-color:rgba(198,84,59,.25);}
+
+  /* ---------- pricing ---------- */
+  .price-card{
+    background:linear-gradient(160deg, var(--teal-800), var(--teal-950));
+    color:var(--cream); border-radius:26px; padding:56px 48px; text-align:center;
+    max-width:640px; margin:52px auto 0; position:relative; overflow:hidden;
+  }
+  .price-tag{font-family:'Avenir Next',sans-serif; font-size:15px; color:var(--mustard); text-transform:uppercase; letter-spacing:.14em; font-weight:700; margin-bottom:18px;}
+  .price-value{font-size:clamp(42px,6vw,64px); margin-bottom:8px;}
+  .price-value sup{font-size:22px; top:-.6em;}
+  .price-old{font-family:'Avenir Next',sans-serif; font-size:15px; color:#9FC0BD; text-decoration:line-through; margin-bottom:28px; display:block;}
+  .price-list{list-style:none; text-align:left; font-family:'Avenir Next',sans-serif; font-size:15px; line-height:2; color:#DCE9E7; max-width:360px; margin:0 auto 32px;}
+  .price-list li::before{content:"✓ "; color:var(--mustard); font-weight:700;}
+
+  /* ---------- faq ---------- */
+  .faq{max-width:760px; margin-top:46px;}
+  .faq-item{border-top:1px solid rgba(31,78,77,.15); padding:24px 0;}
+  .faq-item:last-child{border-bottom:1px solid rgba(31,78,77,.15);}
+  .faq-item h3{font-size:17px; color:var(--teal-900); margin-bottom:10px;}
+  .faq-item p{font-family:'Avenir Next',sans-serif; font-size:15px; line-height:1.65; color:#4A5B59;}
+
+  /* ---------- final cta ---------- */
+  .final-cta{background:var(--teal-950); color:var(--cream); text-align:center; padding:100px 0;}
+  .final-cta h2{color:var(--cream); max-width:16ch; margin:0 auto 20px;}
+  .final-cta .lede{color:#CFE1DF; margin:0 auto 36px;}
+
+  footer{background:var(--teal-950); color:#8FADAA; text-align:center; padding:28px 0 110px; font-family:'Avenir Next',sans-serif; font-size:13px;}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero{padding:76px 0 60px; text-align:left;}
+    .problem-grid, .contents-grid{grid-template-columns:1fr 1fr;}
+    .compare{grid-template-columns:1fr;}
+    .price-card{padding:42px 26px;}
+  }
+  @media (max-width:560px){
+    .problem-grid, .contents-grid{grid-template-columns:1fr;}
+    .stickybar{flex-direction:column; align-items:stretch; text-align:center;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <svg class="bg-stars" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="#D9A441" opacity="0.35">
+      <path d="M120 90 l8 20 20 8 -20 8 -8 20 -8-20 -20-8 20-8z"/>
+      <path d="M900 160 l6 16 16 6 -16 6 -6 16 -6-16 -16-6 16-6z"/>
+      <path d="M840 520 l10 24 24 10 -24 10 -10 24 -10-24 -24-10 24-10z"/>
+      <path d="M70 560 l7 18 18 7 -18 7 -7 18 -7-18 -18-7 18-7z"/>
+    </g>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow sans">Guia para pais · leitura de 20 minutos</span>
+      <h1>Nem todo desenho <em>"educativo"</em> faz bem ao seu bebê.</h1>
+      <p class="hero-sub">Um guia direto ao ponto para você reconhecer, em segundos, quais desenhos ajudam o desenvolvimento do seu filho de 0 a 3 anos — e quais só prendem a atenção sem entregar nada em troca.</p>
+      <div class="hero-cta-row">
+        <a href="#comprar" class="btn">Quero o guia agora →</a>
+        <a href="#dentro" class="btn ghost">Ver o que tem dentro</a>
+      </div>
+      <p class="hero-note">Entrega imediata em PDF · Leia no celular, tablet ou computador</p>
+    </div>
+    <div class="tv-frame">
+      <div class="tv-glow"></div>
+      <svg viewBox="0 0 560 620" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="280" cy="560" rx="220" ry="26" fill="#0D2726" opacity="0.4"/>
+        <line x1="210" y1="80" x2="170" y2="10" stroke="#4A9A98" stroke-width="10" stroke-linecap="round"/>
+        <line x1="350" y1="80" x2="390" y2="10" stroke="#4A9A98" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="170" cy="10" r="10" fill="#E8734A"/>
+        <circle cx="390" cy="10" r="10" fill="#E8734A"/>
+        <rect x="40" y="80" width="480" height="360" rx="40" fill="#4A9A98"/>
+        <rect x="80" y="120" width="400" height="270" rx="22" fill="#FBF3E6"/>
+        <path d="M280 190 C220 130 130 175 130 235 C130 295 200 335 280 380 C360 335 430 295 430 235 C430 175 340 130 280 190 Z" fill="#E8734A" opacity="0.9" transform="translate(0,-10) scale(0.62)" style="transform-origin:280px 260px"/>
+        <g fill="#D9A441">
+          <rect x="130" y="300" width="18" height="50" rx="6"/>
+          <rect x="165" y="270" width="18" height="80" rx="6"/>
+          <rect x="200" y="310" width="18" height="40" rx="6"/>
+          <rect x="342" y="280" width="18" height="70" rx="6"/>
+          <rect x="377" y="300" width="18" height="50" rx="6"/>
+          <rect x="412" y="260" width="18" height="90" rx="6"/>
+        </g>
+        <circle cx="18" cy="220" r="14" fill="#2E6F6E"/>
+        <circle cx="542" cy="220" r="14" fill="#2E6F6E"/>
+        <rect x="230" y="440" width="100" height="26" rx="10" fill="#2E6F6E"/>
+        <rect x="160" y="466" width="240" height="20" rx="10" fill="#2E6F6E"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section class="section-cream">
+  <div class="wrap">
+    <span class="kicker">o problema</span>
+    <h2>Você já ficou em dúvida na hora de escolher um desenho?</h2>
+    <p class="lede">A maioria dos pais decide no impulso — o que a criança pede, o que está em alta, o que distrai por mais tempo. Mas alguns desses conteúdos, segundo especialistas em desenvolvimento infantil, podem estar fazendo mais mal do que bem.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="glyph">😵‍💫</div>
+        <h3>Superestimulação</h3>
+        <p class="sans">Cortes de cena a cada 1-2 segundos sobrecarregam o cérebro em desenvolvimento e dificultam a concentração depois.</p>
+      </div>
+      <div class="problem-card">
+        <div class="glyph">🎯</div>
+        <h3>Conteúdo sem critério</h3>
+        <p class="sans">Nem tudo que se chama "educativo" tem propósito pedagógico real por trás — muito é feito só para prender a atenção.</p>
+      </div>
+      <div class="problem-card">
+        <div class="glyph">🤷</div>
+        <h3>Falta de referência</h3>
+        <p class="sans">Sem um checklist claro, cada novo desenho vira uma decisão do zero — e a culpa some quando você tem critério.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGNATURE COMPARISON ============ -->
+<section class="section-dim">
+  <div class="wrap">
+    <span class="kicker">o critério</span>
+    <h2>A diferença cabe em duas colunas</h2>
+    <p class="lede">É este o comparativo que abre o capítulo 4 do guia — o mesmo que você vai usar para avaliar qualquer desenho novo que aparecer, hoje ou daqui a dois anos.</p>
+    <div class="compare">
+      <div class="compare-col good">
+        <div class="compare-label">✓ Bom desenho educativo</div>
+        <ul>
+          <li>Cenas mudam a cada 4-5 segundos ou mais</li>
+          <li>História com começo, meio e fim</li>
+          <li>Convida a criança a cantar, apontar, repetir</li>
+          <li>Valores claros: cooperação, rotina, respeito</li>
+        </ul>
+      </div>
+      <div class="compare-col bad">
+        <div class="compare-label">✗ Desenho que pede atenção</div>
+        <ul>
+          <li>Cortes de cena a cada 1-2 segundos</li>
+          <li>Sequência de estímulos soltos, sem enredo</li>
+          <li>Absorção passiva, sem participação</li>
+          <li>Foco apenas em prender a atenção</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INSIDE ============ -->
+<section class="section-cream" id="dentro">
+  <div class="wrap">
+    <span class="kicker">o que tem dentro</span>
+    <h2>Um guia curto, prático e direto ao ponto</h2>
+    <p class="lede">Sem enrolação. 15 páginas organizadas para você ler em uma sessão de amamentação e sair com um critério pronto para usar.</p>
+    <div class="contents-grid">
+      <div class="content-card">
+        <span class="num">01</span>
+        <h3>Checklist do bom desenho</h3>
+        <p>Os sinais para reconhecer, em segundos, se um conteúdo vale a pena.</p>
+      </div>
+      <div class="content-card">
+        <span class="num">02</span>
+        <h3>Comparativo bom x atenção</h3>
+        <p>Tabela lado a lado para decidir rápido, sem depender de listas prontas.</p>
+      </div>
+      <div class="content-card">
+        <span class="num">03</span>
+        <h3>8 desenhos recomendados</h3>
+        <p>Seleção real para bebês de 0 a 3 anos, com o porquê de cada escolha.</p>
+      </div>
+      <div class="content-card">
+        <span class="num">04</span>
+        <h3>Casos de atenção</h3>
+        <p>Uma análise honesta de Cocomelon, Baby Shark e Peppa Pig — o que cuidar em cada um.</p>
+      </div>
+      <div class="content-card">
+        <span class="num">05</span>
+        <h3>Tempo de tela por idade</h3>
+        <p>O que dizem a Sociedade Brasileira de Pediatria e a American Academy of Pediatrics.</p>
+      </div>
+      <div class="content-card">
+        <span class="num">06</span>
+        <h3>Checklist para a geladeira</h3>
+        <p>Um cartão resumo para imprimir e consultar antes de aprovar qualquer desenho novo.</p>
+      </div>
+    </div>
+
+    <div class="shows-strip">
+      <div class="show-chip"><span class="emoji">🌙</span><span>Pocoyo</span></div>
+      <div class="show-chip"><span class="emoji">🎵</span><span>Mundo Bita</span></div>
+      <div class="show-chip"><span class="emoji">🎶</span><span>Palavra Cantada</span></div>
+      <div class="show-chip"><span class="emoji">🐻</span><span>Masha e o Urso</span></div>
+      <div class="show-chip"><span class="emoji">🔬</span><span>Show da Luna</span></div>
+      <div class="show-chip attn"><span class="emoji">🍉</span><span>Cocomelon — atenção</span></div>
+      <div class="show-chip attn"><span class="emoji">🦈</span><span>Baby Shark — atenção</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICE / CTA ============ -->
+<section class="section-dim" id="comprar">
+  <div class="wrap" style="text-align:center;">
+    <span class="kicker">seu critério, hoje</span>
+    <h2>Leve o guia agora e nunca mais decida no impulso</h2>
+  </div>
+  <div class="price-card">
+    <div class="price-tag sans">acesso vitalício · pdf</div>
+    <div class="price-value">R$ <span id="preco">14</span><sup>,90</sup></div>
+    <span class="price-old sans">de R$ 29,90</span>
+    <ul class="price-list">
+      <li>Ebook completo em PDF, 15 páginas</li>
+      <li>Checklist para imprimir</li>
+      <li>Leitura em qualquer dispositivo</li>
+      <li>Acesso imediato após a compra</li>
+    </ul>
+    <a href="#" id="cta-final" class="btn" style="width:100%; justify-content:center;">Quero garantir meu acesso →</a>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section-cream">
+  <div class="wrap">
+    <span class="kicker">perguntas frequentes</span>
+    <h2>Antes de qualquer coisa</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3>Meu filho já assiste Cocomelon todo dia. O guia vai me fazer sentir culpa?</h3>
+        <p class="sans">Não é esse o objetivo. O guia mostra como reduzir aos poucos e intercalar com opções mais calmas, sem radicalismo.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Serve para crianças maiores de 3 anos também?</h3>
+        <p class="sans">O foco é 0 a 3 anos, mas o critério de avaliação (ritmo, enredo, participação) vale para qualquer idade.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Como recebo o material?</h3>
+        <p class="sans">Assim que o pagamento é aprovado, o PDF fica disponível para download imediato na sua área de compras.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Posso ler no celular?</h3>
+        <p class="sans">Sim. O PDF foi formatado para leitura confortável em celular, tablet ou computador.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Escolha com critério, não no impulso.</h2>
+    <p class="lede">Em 20 minutos de leitura, você tem um critério para a vida toda.</p>
+    <a href="#comprar" class="btn">Quero o guia agora →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Tela com Critério — material informativo para pais. Não substitui orientação médica ou psicológica individual.</div>
+</footer>
+
+<div class="stickybar" id="stickybar">
+  <span class="sans">Tela com Critério · <strong>R$ 14,90</strong></span>
+  <a href="#" id="cta-sticky" class="btn small">Comprar agora →</a>
+</div>
+
+<script>
+  // ⚠️ COLE AQUI O LINK DE CHECKOUT DA KIWIFY (gerado ao publicar o produto)
+  const CHECKOUT_URL = "https://pay.kiwify.com.br/eHMLA7F";
+
+  document.getElementById('cta-final').href = CHECKOUT_URL;
+  document.getElementById('cta-sticky').href = CHECKOUT_URL;
+
+  // sticky bar appears after scrolling past hero
+  const bar = document.getElementById('stickybar');
+  const hero = document.querySelector('.hero');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting){ bar.classList.add('show'); } else { bar.classList.remove('show'); }
+    });
+  }, { threshold: 0 });
+  io.observe(hero);
+</script>
+
+</body>
+</html>
